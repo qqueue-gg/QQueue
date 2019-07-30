@@ -1,25 +1,12 @@
 import React from 'react';
 
-import Teams from './components/Teams';
+import Team from './components/Team';
 import Users from './components/Users';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Teams></Teams>
+      <Team></Team>
       <Users></Users>
     </div>
   );
