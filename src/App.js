@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Teams from './components/Teams';
+import Users from './components/Users';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         </a>
       </header>
       <Teams></Teams>
+      <Users></Users>
     </div>
   );
 }
