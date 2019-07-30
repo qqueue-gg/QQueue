@@ -2,20 +2,20 @@ const express = require('express');
 const router = express.Router();
 const teamController = require('../controllers/teamController');
 
-app.get('/getTeams', (req, res) =>{
+router.get('/getTeams', (req, res) =>{
   res.status(200).send('okay');
 });
 
-app.post('/newTeam', (req, res) => {
+router.post('/newTeam', (req, res) => {
   res.status(200).send('buddy');
 })
 
-app.put('/updateTeam', (req, res) => {
+router.put('/updateTeam', (req, res) => {
   res.status(200).send('you');
 });
 
-app.delete('/deleteTeam', (requ, res) => {
+router.delete('/deleteTeam', (req, res) => {
   res.status(200).send('chill');
 });
 
-module.export = router;
+module.exports = router;
