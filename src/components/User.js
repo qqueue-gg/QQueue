@@ -93,7 +93,7 @@ export const User = props => {
         <Button>
           <Message />
         </Button>
-        <Button color="primary">
+        <Button variant="contained" href="mailto:eisele.joseph1@gmail.com" color="primary">
           <MailOutline />
         </Button>
       </ExpansionPanelActions>
