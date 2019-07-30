@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const teamController = require('../controllers/teamController');
 
 app.get('/getTeams', (req, res) =>{
   res.status(200).send('okay');
