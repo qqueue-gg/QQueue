@@ -3,20 +3,24 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 
 // Get all Users
-app.get('/getUsers', (req, res) =>{
+router.get('/getUsers', userController.getUsers, (req, res) =>{
   res.status(200).send('ye');
 });
 
-app.post('/newUser', (req, res) =>{
+router.post('/addUser', userController.addUser, (req, res) =>{
   res.status(200).send('boi');
 });
 
-app.put('/updateUser', (req, res) => {
+router.post('/loginUser', (req, res) =>{
+  res.status(200).send('fricken');
+});
+
+router.put('/updateUser', userController.editUser, (req, res) => {
   res.status(200).send('work');
 });
 
-app.delete('/deleteUser', (requ, res) => {
+router.delete('/deleteUser', userController.deleteUser, (req, res) => {
   res.status(200).send('it');
 });
 
-module.export = router;
+module.exports = router;
