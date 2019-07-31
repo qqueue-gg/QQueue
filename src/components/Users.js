@@ -22,11 +22,28 @@ export const Users = () => {
       })
   }, []);
 
-  console.log('OUTSIDE: ', users);
+  const mappedUsers = users.map(user =>
+    <User
+      key={user._id} 
+      _id={user._id}
+      age={user.age}
+      createdAt={user.createdAt}
+      email={user.email}
+      hobbyGames={user.hobbyGames.map(game => game.game + ' ')}
+      isAdmin={user.isAdmin}
+      lastSeen={user.lastSeen}
+      logo={user.logo}
+      primaryGame={user.primaryGame}
+      skill={user.skill}
+      steamprofile={user.steamProfile}
+      timezone={user.timezone}
+      username={user.username}
+      currentTeam={user.currentTeam}
+    />);
 
   return (
-    <Container style={{'margin-top': '3em'}}>
-      <User />
+    <Container style={{'marginTop': '3em'}}>
+      {mappedUsers}
     </Container>
   );
 };
