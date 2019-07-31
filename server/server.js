@@ -35,4 +35,4 @@ app.use((err, req, res, next) => {
   if(err) res.status(404).send('404: NOT FOUND');
 })
 
-app.listen(8080, () => 'gilbert is always watching');
+app.listen(8080, () => console.log('gilbert is always watching'));
