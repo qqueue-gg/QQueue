@@ -13,7 +13,7 @@ router.post('/newUser', userController.addUser, (req, res) =>{
 
 router.post('/loginUser', (req, res) =>{
   res.status(200).send('fricken');
-})
+});
 
 router.put('/updateUser', userController.editUser, (req, res) => {
   res.status(200).send('work');
