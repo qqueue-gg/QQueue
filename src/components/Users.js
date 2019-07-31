@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Container } from "@material-ui/core";
+import { Container, TextField } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import '../App.css';
 
 import { User } from './User';
 
+const useStyles = makeStyles(theme => ({
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  }
+}));
 
 export const Users = () => {
+  const classes = useStyles();
   // iterate over users and render User components
 
   // useState hook to store local state - users retrieved from database
   const [users, setUsers] = useState([]);
 
   // useEffect lifecycle method componentDidMount
-
   useEffect(() => {
     fetch('http://localhost:8080/user/getUsers')
       .then(res => {
@@ -29,7 +37,7 @@ export const Users = () => {
       age={user.age}
       createdAt={user.createdAt}
       email={user.email}
-      hobbyGames={user.hobbyGames.map(game => game.game + ' ')}
+      hobbyGames={user.hobbyGames.map(game => game + ' ')}
       isAdmin={user.isAdmin}
       lastSeen={user.lastSeen}
       logo={user.logo}
@@ -43,6 +51,15 @@ export const Users = () => {
 
   return (
     <Container style={{'marginTop': '3em'}}>
+      <TextField
+        id="filled-search"
+        label="Search field"
+        type="search"
+        className={classes.textField}
+        margin="normal"
+        variant="filled"
+        style={{'color': 'white'}}
+      />
       {mappedUsers}
     </Container>
   );

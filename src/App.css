@@ -1,3 +1,7 @@
 body {
   background-image: url("./static/images/csgo-background.jpg");
 }
+
+.textField input {
+  color: white;
+}
