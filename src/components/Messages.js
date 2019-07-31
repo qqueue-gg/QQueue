@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 import {
+  Box,
   Button,
   Avatar,
   Typography,
   Dialog,
   MenuList,
   makeStyles,
-  Container
+  Container,
+  CssBaseline
 } from "@material-ui/core";
 
 const useStyles = makeStyles(them => ({
@@ -17,8 +19,11 @@ const useStyles = makeStyles(them => ({
 export default function Messages (props){
   
   return(
-    <Container>
-      <h1>hi</h1>
-    </Container>
+    <React.Fragment>
+      <CssBaseline />
+      <Container>
+        <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh'}} />
+      </Container>
+    </React.Fragment>
   )
 }
