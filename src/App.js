@@ -24,6 +24,7 @@ function App() {
   const classes = useStyles();
   const routeResult = useRoutes(Routes);
   const [loggedIn, updateLoggedIn] = useState(false);
+  const [currUser, updateCurrUser] = useState();
   const main = [
     <AppBar className={classes.nav}>
       <Button><A href="/" className={classes.link}>Users</A></Button>
@@ -36,7 +37,7 @@ function App() {
 
   return (
     <div className="App">
-      {loggedIn ? main : <LoginSignup updateLoggedIn={updateLoggedIn} />}
+      {loggedIn ? main : <LoginSignup updateLoggedIn={updateLoggedIn} updateCurrUser={updateCurrUser} />}
     </div>
   );
 }
