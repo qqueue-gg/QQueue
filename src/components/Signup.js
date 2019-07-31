@@ -35,7 +35,18 @@ function Signup(props) {
   };
 
   function handleSubmit() {
-    alert(JSON.stringify(values));
+    // alert(JSON.stringify(values));
+    const { username, password } = values;
+    fetch('http://localhost:8080/user/getUsers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password }),
+    }).then(res => {
+      if (res.status === 200) console.log('user created successfully');
+      else console.log('error');
+    })
   }
 
   // TODO: add validation for matching password and password rules

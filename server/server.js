@@ -16,12 +16,12 @@ mongoose.connect('mongodb://TeamQQueue:qq4thewin@ds257507.mlab.com:57507/qqueue'
 
 const userRoutes = require('./routes/userRoutes');
 const teamRoutes = require('./routes/teamRoutes');
-const authRoutes = require('./routes/authRoutes');
+// const authRoutes = require('./routes/authRoutes');
 
 /*   Routing Endpoints     */
 app.use('/user', userRoutes);
 app.use('/team', teamRoutes);
-app.use('/auth', authRoutes);
+// app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send("i'm gilbert")
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 
 // Global error handler
 app.use((err, req, res, next) => {
-  if(err) res.status(404).send('404: NOT FOUND');
+  if(err) res.status(404).send(err);
 })
 
 app.listen(8080, () => console.log('gilbert is always watching'));
