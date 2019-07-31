@@ -12,7 +12,7 @@ const userSchema = new Schema({
   currentTeam: String,
   isAdmin: Boolean,
   primaryGame: String,
-  hobbyGames: [{game: String}],
+  hobbyGames: [String],
   lastSeen: Date,
   logo: String,
   createdAt: {type: Date, default: Date.now},
