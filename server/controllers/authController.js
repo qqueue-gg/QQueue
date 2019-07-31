@@ -1,11 +1,9 @@
 module.exports = {
-  verifyUser: function(req, res, next){
-    
+  verifyUser: function(req, res, next) {
+
   },
 
-  checkCookies: function(req, res, next){
-    
+  checkCookies: function(req, res, next) {
+
   }
-
-
 };
