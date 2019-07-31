@@ -8,7 +8,7 @@ export const Teams = () => {
   // iterate over users and render User components
 
   return (
-    <Container>
+    <Container style={{'margin-top': '3em'}}>
       <Team />
     </Container>
   );
