@@ -11,7 +11,7 @@ export const Users = () => {
   const [users, setUsers] = useState([]);
 
   return (
-    <Container>
+    <Container style={{'margin-top': '3em'}}>
       <User />
     </Container>
   );
