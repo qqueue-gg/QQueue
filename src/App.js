@@ -28,6 +28,7 @@ function App() {
         <Button><A href="/" className={classes.link}>Users</A></Button>
         <Button><A href="/teams" className={classes.link}>Teams</A></Button>
         <Button><A href="/profile" className={classes.link}>Profile</A></Button>
+        <Button> <A href="/messages" className={classes.link}>Messages</A> </Button>
       </AppBar>
       {routeResult}
     </div>
