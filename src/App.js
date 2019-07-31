@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     'text-decoration': 'none',
-    color: 'black',
+    color: 'white',
   },
 }));
 

@@ -19,7 +19,7 @@ module.exports = teamController = {
     Team.find({}, (err, obj) => {
       if(err) return next(err);
 
-      return res.status(200).json(entries);
+      return res.status(200).json(obj);
     });
   },
 

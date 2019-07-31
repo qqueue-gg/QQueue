@@ -18,7 +18,7 @@ module.exports = userController = {
     User.find({}, (err, obj) => {
       if(err) return next(err);
 
-      return res.status(200).json(entries);
+      return res.status(200).json(obj);
     });
   },
 
@@ -30,7 +30,7 @@ module.exports = userController = {
   },
 
   deleteUser: (req, res, next) => {
-    User.findOneAndDelete({ _id: req.body.id }, (err, obj) => {
+    User.findOneAndDelete({ _id: req.body._id }, (err, obj) => {
       if(err) return next(err);
 
       return next();

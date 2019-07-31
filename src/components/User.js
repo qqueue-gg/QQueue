@@ -29,6 +29,10 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       textDecoration: "underline"
     }
+  },
+  displayCol: {
+    display: "flex",
+    flexDirection: "column"
   }
 }));
 
@@ -75,18 +79,20 @@ export const User = props => {
         </div>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <Typography>
-          Gaming Interests: Fortnite, Apex Legends, League of Legends, DOTA 2
-        </Typography>
-        <hr />
-        <Typography>
-          <a
-            href="https://steamcommunity.com/id/stewie2kTv"
-            className={classes.link}
-          >
-            Steam Profile
-          </a>
-        </Typography>
+        <div className={classes.displayCol}>
+          <Typography>
+            Gaming Interests: Fortnite, Apex Legends, League of Legends, DOTA 2
+          </Typography>
+      
+          <Typography>
+            <a
+              href="https://steamcommunity.com/id/stewie2kTv"
+              className={classes.link}
+            >
+              Steam Profile
+            </a>
+          </Typography>
+        </div>
       </ExpansionPanelDetails>
       <Divider />
       <ExpansionPanelActions>
