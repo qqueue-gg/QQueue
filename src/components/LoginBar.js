@@ -6,6 +6,9 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
+// TODO: add a handle click that checks user and pass against DB, if match
+// set updateLoggedIn(true)
+
 function LoginBar(props) {
   const classes = useStyles();
   return (
