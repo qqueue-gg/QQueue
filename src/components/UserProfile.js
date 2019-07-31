@@ -43,40 +43,45 @@ function UserProfile(props) {
     hobbyGames: [],
   });
 
-  function handleChange(event) {
+  function handleDropdown(event) {
     setValues(oldValues => ({
       ...oldValues,
       [event.target.name]: event.target.value,
     }));
   }
 
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  }
+
   const handleSubmit = () => {
     alert(JSON.stringify(values));
   };
 
+  // TODO: make time zone a dropdown
   return (
     <form className={classes.container} onSubmit={handleSubmit}>
       <InputLabel htmlFor="username" className={classes.label}>Username</InputLabel>
-      <Input className={classes.input} id="username" name="username" defaultValue="jeisele" onChange={handleChange}></Input>
+      <Input className={classes.input} id="username" name="username" defaultValue="jeisele" onChange={handleChange('username')}></Input>
       <InputLabel htmlFor="bio" className={classes.label}>Bio</InputLabel>
-      <Input className={classes.input} id="bio" name="bio" defaultValue="this is my bio" onChange={handleChange}></Input>
+      <Input className={classes.input} id="bio" name="bio" defaultValue="this is my bio" onChange={handleChange('bio')}></Input>
       <InputLabel htmlFor="steamName" className={classes.label}>Steam Name</InputLabel>
-      <Input className={classes.input} id="steamName" name="steamName" defaultValue="steam name" onChange={handleChange}></Input>
+      <Input className={classes.input} id="steamName" name="steamName" defaultValue="steam name" onChange={handleChange('steamName')}></Input>
       <InputLabel htmlFor="age" className={classes.label}>Age</InputLabel>
-      <Input className={classes.input} id="age" name="age" defaultValue={24} onChange={handleChange}></Input>
+      <Input className={classes.input} id="age" name="age" defaultValue={24} onChange={handleChange('age')}></Input>
       <InputLabel htmlFor="timeZone" className={classes.label}>Time Zone</InputLabel>
-      <Input className={classes.input} id="timeZone" name="timeZone" defaultValue="time zone" onChange={handleChange}></Input>
+      <Input className={classes.input} id="timeZone" name="timeZone" defaultValue="time zone" onChange={handleChange('timeZone')}></Input>
       <InputLabel htmlFor="email" className={classes.label}>Email Address</InputLabel>
-      <Input className={classes.input} id="email" name="email" defaultValue="eisele.joseph@gmail.com" onChange={handleChange}></Input>
+      <Input className={classes.input} id="email" name="email" defaultValue="eisele.joseph@gmail.com" onChange={handleChange('email')}></Input>
       <InputLabel htmlFor="faveGame" className={classes.label}>Main Game</InputLabel>
-      <Select value={values.faveGame} onChange={handleChange} className={classes.input} id="faveGame" name="faveGame">
+      <Select value={values.faveGame} onChange={handleDropdown} className={classes.input} id="faveGame" name="faveGame">
         <MenuItem value="CS:GO">CS:GO</MenuItem>
         <MenuItem value="League of Legends">League of Legends</MenuItem>
         <MenuItem value="DOTA">DOTA</MenuItem>
         <MenuItem value="Fortnite">Fortnite</MenuItem>
       </Select>
       <InputLabel htmlFor="hobbyGames" className={classes.label}>Hobby Games</InputLabel>
-      <Select multiple value={values.hobbyGames} onChange={handleChange} className={classes.input} id="hobbyGames" name="hobbyGames">
+      <Select multiple value={values.hobbyGames} onChange={handleDropdown} className={classes.input} id="hobbyGames" name="hobbyGames">
         <MenuItem value="CS:GO">CS:GO</MenuItem>
         <MenuItem value="League of Legends">League of Legends</MenuItem>
         <MenuItem value="DOTA">DOTA</MenuItem>
