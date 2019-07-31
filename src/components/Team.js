@@ -30,12 +30,32 @@ const useStyles = makeStyles(theme => ({
     width: 60,
     height: 60,
     paddingRight: 10,
+  },
+  displayCol: {
+    display: "flex",
+    flexDirection: "column"
   }
 
 }))
 
-export default function Team ({TeamName, TeamData}){
+export default function Team (props){
   const classes = useStyles();
+  
+  // get All team players
+  const mappedPlayers = props.teamMates.map((mates) =>{
+    return(
+      <Chip key={mates._id} label={mates.name} className={'chips'} >
+      </Chip>
+    )   
+  });
+    // get all accolates
+  const mappedAccolades = props.accolades.map((acco) =>{
+    return(
+      <Chip label={acco.accolade} key={acco._id}>
+
+      </Chip>
+    )
+  })
 
   return(
   <container>
@@ -46,22 +66,34 @@ export default function Team ({TeamName, TeamData}){
         </div>
 
         <div className={classes.column}>
-          <Typography>TeamName</Typography>  
+          <Typography>{props.teamName}</Typography>  
         </div>
         <div className={classes.column}>
-          <Typography>TeamMoto: Flexin on ya'll</Typography>
+          <Typography>{props.motto}</Typography>
         </div>
         <div className={classes.column}>
-          <Typography>Game: CSGO</Typography>
+          <Typography>{props.primaryGame}</Typography>
         </div>
         <div className={classes.column}>
-        <Button size="small" color="primary">Email</Button>
+        <Button size="small" color="primary" email={props.email}>Email</Button>
         </div>
       </ExpansionPanelSummary>
 {/*Details Below */}
       <ExpansionPanelDetails>
+        <div className={classes.displayCol}>
+          {mappedPlayers}
+
+        </div>
+        <div className={'bio'}>
+          {props.bio}
+        </div>
+        <div className={'Accolades'} >
+          {mappedAccolades}
+        </div>
 
       </ExpansionPanelDetails>
+      <Divider />
+            
     </ExpansionPanel>
   </container>
   )
