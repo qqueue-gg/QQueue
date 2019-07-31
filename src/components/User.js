@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import {
   ExpansionPanel,
@@ -33,6 +33,9 @@ const useStyles = makeStyles(theme => ({
   displayCol: {
     display: "flex",
     flexDirection: "column"
+  },
+  mb: {
+    marginBottom: "0.5rem"
   }
 }));
 
@@ -45,35 +48,35 @@ export const User = props => {
   const classes = useStyles();
 
   return (
-    <ExpansionPanel>
+    <ExpansionPanel className={classes.mb}>
       <ExpansionPanelSummary
         expandIcon={<ExpandMore />}
         aria-controls="panel1c-content"
         id="panel1c-header"
       >
         <div className={classes.column}>
-          <ProfileImage src="http://pngimg.com/uploads/fish/fish_PNG25137.png" />
-          <Typography className={classes.heading}>@fish</Typography>
+          <ProfileImage src={props.logo} />
+          <Typography className={classes.heading}>@{props.username}</Typography>
         </div>
         <div className={classes.column}>
-          <Typography className={classes.secondaryHeading}>CS:GO</Typography>
+          <Typography className={classes.secondaryHeading}>{props.primaryGame}</Typography>
           <Typography className={classes.secondaryHeading}>
-            Rank: Legendary Eagle
+            Rank: {props.skill}
           </Typography>
           <Typography className={classes.secondaryHeading}>
-            Current Team: Team Liquid
+            Current Team: {props.currentTeam}
           </Typography>
         </div>
         <div className={classes.column}>
-          <Typography className={classes.secondaryHeading}>Age: 25</Typography>
+          <Typography className={classes.secondaryHeading}>Age: {props.age}</Typography>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>
-              Timezone: PST - USA
+              Timezone: {props.timezone}
             </Typography>
           </div>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>
-              Last Seen: Jul 30, 19
+              Last Seen: {props.lastSeen}
             </Typography>
           </div>
         </div>
@@ -81,13 +84,15 @@ export const User = props => {
       <ExpansionPanelDetails>
         <div className={classes.displayCol}>
           <Typography>
-            Gaming Interests: Fortnite, Apex Legends, League of Legends, DOTA 2
+            Gaming Interests: {props.hobbyGames}
           </Typography>
       
           <Typography>
             <a
-              href="https://steamcommunity.com/id/stewie2kTv"
               className={classes.link}
+              href={props.steamprofile}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Steam Profile
             </a>

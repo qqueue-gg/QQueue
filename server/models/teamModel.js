@@ -9,6 +9,7 @@ const teamSchema = new Schema({
   motto: String,
   accolades: [{accolade: String}],
   bio: String,
+  primaryGame: String,
   createdAt: {type: Date, default: Date.now}
 });
 
