@@ -11,6 +11,10 @@ router.post('/newUser', (req, res) =>{
   res.status(200).send('boi');
 });
 
+router.post('/loginUser', (req, res) =>{
+  res.status(200).send('fricken');
+})
+
 router.put('/updateUser', (req, res) => {
   res.status(200).send('work');
 });
