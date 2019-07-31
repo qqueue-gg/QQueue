@@ -7,7 +7,7 @@ router.get('/getUsers', userController.getUsers, (req, res) =>{
   res.status(200).send('ye');
 });
 
-router.post('/newUser', userController.addUser, (req, res) =>{
+router.post('/addUser', userController.addUser, (req, res) =>{
   res.status(200).send('boi');
 });
 

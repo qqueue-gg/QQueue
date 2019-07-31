@@ -3,7 +3,6 @@ const Team = require('../models/teamModel.js');
 module.exports = teamController = {
   // add middleware to interact with database
   addTeam: (req, res, next) => {
-    const newTeam = { ...req.body };
     Team.create({
       ...req.body
     }, (err, team) => {
@@ -31,7 +30,7 @@ module.exports = teamController = {
   },
 
   deleteTeam: (req, res, next) => {
-    Team.findOneAndDelete({ _id: req.body.id }, (err, obj) => {
+    Team.findOneAndDelete({ _id: req.body._id }, (err, obj) => {
       if(err) return next(err);
 
       return next();

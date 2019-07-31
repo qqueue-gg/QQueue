@@ -6,7 +6,7 @@ router.get('/getTeams', teamController.getTeams, (req, res) =>{
   res.status(200).send('okay');
 });
 
-router.post('/newTeam', teamController.addTeam, (req, res) => {
+router.post('/addTeam', teamController.addTeam, (req, res) => {
   res.status(200).send('buddy');
 })
 
