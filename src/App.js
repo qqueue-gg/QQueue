@@ -23,19 +23,19 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
   const routeResult = useRoutes(Routes);
-  const ballsack =
-  [<AppBar className={classes.nav}>
-    <Button><A href="/" className={classes.link}>Users</A></Button>
-    <Button><A href="/teams" className={classes.link}>Teams</A></Button>
-    <Button><A href="/profile" className={classes.link}>Profile</A></Button>
-  </AppBar>,
-  routeResult
+  const [loggedIn, updateLoggedIn] = useState(false);
+  const main = [
+    <AppBar className={classes.nav}>
+      <Button><A href="/" className={classes.link}>Users</A></Button>
+      <Button><A href="/teams" className={classes.link}>Teams</A></Button>
+      <Button><A href="/profile" className={classes.link}>Profile</A></Button>
+    </AppBar>,
+    routeResult
   ];
-  const [loggedIn, updateLoggedIn] = useState(true);
 
   return (
     <div className="App">
-      {loggedIn ? ballsack : <LoginSignup />}
+      {loggedIn ? main : <LoginSignup updateLoggedIn={updateLoggedIn} />}
     </div>
   );
 }
