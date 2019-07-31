@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import {
   ExpansionPanel,
@@ -86,8 +86,9 @@ export const User = props => {
       
           <Typography>
             <a
-              href="https://steamcommunity.com/id/stewie2kTv"
               className={classes.link}
+              href="https://steamcommunity.com/id/stewie2kTv"
+              target="_blank"
             >
               Steam Profile
             </a>
