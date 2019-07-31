@@ -26,6 +26,7 @@ function Signup(props) {
   const classes = useStyles();
   const [values, setValues] = useState({
     username: "",
+    email: "",
     password: "",
     confirmPw: "",
   });
@@ -36,16 +37,17 @@ function Signup(props) {
 
   function handleSubmit() {
     // alert(JSON.stringify(values));
-    const { username, password } = values;
-    fetch('http://localhost:8080/user/getUsers', {
+    const { username, password, email } = values;
+    fetch('http://localhost:8080/user/addUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, email }),
     }).then(res => {
       if (res.status === 200) console.log('user created successfully');
-      else console.log('error');
+    }).catch(err => {
+      console.log(err);
     })
   }
 
@@ -56,6 +58,8 @@ function Signup(props) {
     <form className={classes.container}>
       <InputLabel htmlFor="username">Username</InputLabel>
       <Input id="username" name="username" className={classes.input} onChange={handleChange('username')}></Input>
+      <InputLabel htmlFor="email">Email</InputLabel>
+      <Input id="email" name="email" className={classes.input} onChange={handleChange('email')}></Input>
       <InputLabel htmlFor="password">Password</InputLabel>
       <Input id="password" name="password" className={classes.input} onChange={handleChange('password')}></Input>
       <InputLabel htmlFor="confirmPw">Confirm Password</InputLabel>
