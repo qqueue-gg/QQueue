@@ -3,6 +3,7 @@ import { Container, TextField } from "@material-ui/core";
 import '../App.css';
 
 import { User } from './User';
+import { ThreeSixtyRounded, ContactsOutlined } from "@material-ui/icons";
 
 export class Users extends React.Component {
   constructor(){
@@ -12,6 +13,13 @@ export class Users extends React.Component {
       users: [],
       mappedUsers: []
     }
+    this.createNewMessage = this.createNewMessage.bind(this);
+  }
+
+  createNewMessage = (event, recipient) => {
+    console.log('the one I clicked on', recipient);  
+    console.log(event);
+    fetch('http://localhost:8080/user/getUsers')
   }
 
   mapUsers = userArray => {
@@ -32,6 +40,7 @@ export class Users extends React.Component {
         timezone={user.timezone}
         username={user.username}
         currentTeam={user.currentTeam}
+        createNewMessage={this.createNewMessage}
       />);
   };
 

@@ -29,22 +29,21 @@ class Messages extends Component {
       endpoint: "http://localhost:8080",
       response: false
     }
-    // this.socket = io();
     
   }
+
+
 
   componentDidMount(){
     const { endpoint } = this.state;
     console.log('loggin endpoint', endpoint)
     const socket = socketIOClient(endpoint);
-    socket.on('room', data => this.setState({response: data})
-  )
-    
+    socket.on('room', data => this.setState({response: data}));    
   }
 
-
-
-
+  componentDidUpdate(){
+    
+  }
 
 
   render() {
