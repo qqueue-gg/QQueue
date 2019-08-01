@@ -1,7 +1,7 @@
 const Message = require('../models/messageMOdel.js');
 
 module.exports = messageController = {
-  getMessagerList: (req, res, next) => {
+  getMessengerList: (req, res, next) => {
     Message.find({
       partyOne: req.body.partyOne,
       partyTwo: req.body.partyTwo
