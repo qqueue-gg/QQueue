@@ -58,7 +58,7 @@ class Messages extends Component {
     })
     .then(ourConvo => {
       console.log('ourConvo', ourConvo)
-      const messageArr = ourConvo["messages"];
+      const messageArr = ourConvo[0]["messages"];
       if(messageArr) messageArr.forEach((message) => ourMsgHistory.push(message));
     })
     .then( oops => {
@@ -68,7 +68,7 @@ class Messages extends Component {
         currRoom: ourRoomName
        });  
        const { endpoint } = this.state;
-        const socket = socketIOClient(endpoint);
+       const socket = socketIOClient(endpoint);
   
        socket.emit('joinOurRoom', ourRoomName);
        if(ourRoomName !== lastRoom) socket.emit('leaveOurRoom', lastRoom);
