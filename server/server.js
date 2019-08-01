@@ -40,15 +40,18 @@ io.on("connection", socket => {
 
   // join this 'room', a unique room name made up of two user's strings
   socket.on('joinOurRoom', ( ourRoom ) =>{
+    console.log('joining room:', ourRoom);
     socket.join(ourRoom);
   });
   // gotta leave previous room or you'll risk emitting to previously selected rooms the same message
   socket.on('leaveOurRoom', ( roomLeaving ) =>{
+    console.log('leaving room:', roomLeaving);
     socket.leave(roomLeaving);
   });
 
   // Chat message logic
   socket.on('chat', ( messageSent, roomName, player1, player2 ) =>{
+    
     // add logic to send the message to the db
     io.to(roomName).emit(messageSent)
   });
