@@ -6,9 +6,9 @@ const messageSchema = new Schema({
   partyTwo: {type: String, required: true},
   messages: [
     {
-      author: {type: String, required: true},
-      message: {type: String, required: true},
-      created: {type: Date, default: Date.now}
+      author: String,
+      message: String,
+      created: Date
     }
   ]
 });
