@@ -62,17 +62,17 @@ function UserProfile(props) {
   return (
     <form className={classes.container} onSubmit={handleSubmit}>
       <InputLabel htmlFor="username" className={classes.label}>Username</InputLabel>
-      <Input className={classes.input} id="username" name="username" defaultValue="jeisele" onChange={handleChange('username')}></Input>
+      <Input className={classes.input} id="username" name="username" defaultValue={props.currUser.username} onChange={handleChange('username')}></Input>
       <InputLabel htmlFor="bio" className={classes.label}>Bio</InputLabel>
-      <Input className={classes.input} id="bio" name="bio" defaultValue="this is my bio" onChange={handleChange('bio')}></Input>
+      <Input className={classes.input} id="bio" name="bio" defaultValue={props.currUser.bio} onChange={handleChange('bio')}></Input>
       <InputLabel htmlFor="steamName" className={classes.label}>Steam Name</InputLabel>
-      <Input className={classes.input} id="steamName" name="steamName" defaultValue="steam name" onChange={handleChange('steamName')}></Input>
+      <Input className={classes.input} id="steamName" name="steamName" defaultValue={props.currUser.steamProfile} onChange={handleChange('steamName')}></Input>
       <InputLabel htmlFor="age" className={classes.label}>Age</InputLabel>
-      <Input className={classes.input} id="age" name="age" defaultValue={24} onChange={handleChange('age')}></Input>
+      <Input className={classes.input} id="age" name="age" defaultValue={props.currUser.age} onChange={handleChange('age')}></Input>
       <InputLabel htmlFor="timeZone" className={classes.label}>Time Zone</InputLabel>
-      <Input className={classes.input} id="timeZone" name="timeZone" defaultValue="time zone" onChange={handleChange('timeZone')}></Input>
+      <Input className={classes.input} id="timeZone" name="timeZone" defaultValue={props.currUser.timezone} onChange={handleChange('timeZone')}></Input>
       <InputLabel htmlFor="email" className={classes.label}>Email Address</InputLabel>
-      <Input className={classes.input} id="email" name="email" defaultValue="eisele.joseph@gmail.com" onChange={handleChange('email')}></Input>
+      <Input className={classes.input} id="email" name="email" defaultValue={props.currUser.email} onChange={handleChange('email')}></Input>
       <InputLabel htmlFor="faveGame" className={classes.label}>Main Game</InputLabel>
       <Select value={values.faveGame} onChange={handleDropdown} className={classes.input} id="faveGame" name="faveGame">
         <MenuItem value="CS:GO">CS:GO</MenuItem>

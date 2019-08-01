@@ -20,11 +20,13 @@ mongoose.connect('mongodb://TeamQQueue:qq4thewin@ds257507.mlab.com:57507/qqueue'
 
 const userRoutes = require('./routes/userRoutes');
 const teamRoutes = require('./routes/teamRoutes');
+const authRoutes = require('./routes/authRoutes');
 const messageRoutes = require('./routes/messagesRoutes');
 
 /*   Routing Endpoints     */
 app.use('/user', userRoutes);
 app.use('/team', teamRoutes);
+app.use('/auth', authRoutes);
 app.use('/message', messageRoutes);
 
 app.get('/', (req, res) => {
@@ -45,9 +47,9 @@ io.on("connection", socket => {
     socket.leave(roomLeaving);
   });
 
-  // Chat message logic 
+  // Chat message logic
   socket.on('chat', ( messageSent, roomName, player1, player2 ) =>{
-    // add logic to send the message to the db    
+    // add logic to send the message to the db
     io.to(roomName).emit(messageSent)
   });
    socket.emit('room', true);
@@ -55,13 +57,14 @@ io.on("connection", socket => {
 
 
 // Handle invalid route
-app.use((req, res, next) => {
-  res.status(404).send('404: NOT FOUND');
-});
+// app.use((req, res, next) => {
+//   res.status(404).send('404: NOT FOUND');
+// });
 
 // Global error handler
 app.use((err, req, res, next) => {
-  if(err) res.status(404).send('404: NOT FOUND');
+  console.log(err);
+  res.status(404).send(err);
 })
 
 
