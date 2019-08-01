@@ -52,8 +52,8 @@ io.on("connection", socket => {
   });
 
   // Chat message logic
-  socket.on('chat', ( messageSent, roomName, player1, player2 ) =>{
-    messageController.updateSocketMessage(messageSent);
+  socket.on('chat', ( messageSent, roomName) =>{
+    
     // add logic to send the message to the db
     io.to(roomName).emit(messageSent)
   });
