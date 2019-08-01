@@ -61,18 +61,19 @@ class Messages extends Component {
       const messageArr = ourConvo["messages"];
       if(messageArr) messageArr.forEach((message) => ourMsgHistory.push(message));
     })
-        
-    this.setState({
-      currMessaging: party2,
-      messageHistory: ourMsgHistory,
-      currRoom: ourRoomName
-     });  
-     const { endpoint } = this.state;
-      const socket = socketIOClient(endpoint);
-
-     socket.emit('joinOurRoom', ourRoomName);
-     if(ourRoomName !== lastRoom) socket.emit('leaveOurRoom', lastRoom);
-     // leave room and join
+    .then( oops => {
+      this.setState({
+        currMessaging: party2,
+        messageHistory: ourMsgHistory,
+        currRoom: ourRoomName
+       });  
+       const { endpoint } = this.state;
+        const socket = socketIOClient(endpoint);
+  
+       socket.emit('joinOurRoom', ourRoomName);
+       if(ourRoomName !== lastRoom) socket.emit('leaveOurRoom', lastRoom);
+       // leave room and join
+    })
   }
 
 
