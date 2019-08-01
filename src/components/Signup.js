@@ -59,10 +59,10 @@ function Signup(props) {
   // TODO: add validation for username already taken
   // TODO: add validation for valid email
   // TODO: add password rules as a warning
-  // TODO: change success popup position
+  // TODO: change snackbar location
   return (
     <div>
-      <Snackbar open={success} autoHideDuration={1500} onClose={() => updateSuccess(false)} message={<span id="success">Account Created!</span>} />
+      <Snackbar open={success} autoHideDuration={2000} onClose={() => updateSuccess(false)} message={<span id="success">Account Created!</span>} />
       <form className={classes.container}>
         <InputLabel htmlFor="username">Username</InputLabel>
         <Input id="username" name="username" className={classes.input} onChange={handleChange('username')}></Input>

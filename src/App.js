@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-// import { useRoutes } from 'hookrouter';
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
-import Routes from './router';
-import { A } from 'hookrouter';
 import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';

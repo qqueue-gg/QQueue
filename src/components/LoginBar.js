@@ -31,8 +31,8 @@ function LoginBar(props) {
       .then(res => res.json())
       .then(res => {
         if (res) {
-          props.updateLoggedIn(true);
           props.updateCurrUser(res);
+          props.updateLoggedIn(true);
         }
         else updateFailure(true);
       });
