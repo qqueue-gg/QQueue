@@ -28,6 +28,29 @@ app.get('/', (req, res) => {
   res.send("i'm gilbert")
 });
 
+/* Socket IO Logic */
+// io.on('connection', function(socket){
+//   // when component unmounts, this should log
+//   socket.on('disconnect', ()=>{console.log('woohoo, we left / disconnected')});
+
+//   // join this 'room', a unique room name made up of two user's strings
+//   socket.on('joinOurRoom', ( ourRoom ) =>{
+//     socket.join(ourRoom);
+//   });
+//   // gotta leave previous room or you'll risk emitting to previously selected rooms the same message
+//   socket.on('leaveOurRoom', ( roomLeaving ) =>{
+//     socket.leave(roomLeaving);
+//   });
+
+//   // Chat message logic 
+//   socket.on('chat', ( messageSent, roomName, player1, player2 ) =>{
+//     // add logic to send the message to the db    
+//     io.to(roomName).emit(messageSent)
+//   });
+
+// })
+
+
 // Handle invalid route
 app.use((req, res, next) => {
   res.status(404).send('404: NOT FOUND');
@@ -38,26 +61,5 @@ app.use((err, req, res, next) => {
   if(err) res.status(404).send('404: NOT FOUND');
 })
 
-/* Socket IO Logic */
-io.on('connection', function(socket){
-  // when component unmounts, this should log
-  socket.on('disconnect', ()=>{console.log('woohoo, we left / disconnected')});
-
-  // join this 'room', a unique room name made up of two user's strings
-  socket.on('joinOurRoom', ( ourRoom ) =>{
-    socket.join(ourRoom);
-  });
-  // gotta leave previous room or you'll risk emitting to previously selected rooms the same message
-  socket.on('leaveOurRoom', ( roomLeaving ) =>{
-    socket.leave(roomLeaving);
-  });
-
-  // Chat message logic 
-  socket.on('chat', ( messageSent, roomName, player1, player2 ) =>{
-    // add logic to send the message to the db    
-    io.to(roomName).emit(messageSent)
-  });
-
-})
 
 server.listen(8080, () => 'gilbert is always watching');
