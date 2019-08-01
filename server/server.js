@@ -52,13 +52,8 @@ io.on("connection", socket => {
   });
 
   // Chat message logic
-<<<<<<< HEAD
   socket.on('chat', ( messageSent, roomName) =>{
     
-=======
-  socket.on('chat', ( messageSent, roomName, player1, player2 ) =>{
-    messageController.updateSocketMessage(messageSent);
->>>>>>> e34d552da5311c42aeb23c6e3f0160bebf0cf60a
     // add logic to send the message to the db
     io.to(roomName).emit(messageSent)
   });

@@ -41,6 +41,7 @@ class Messages extends Component {
     this.updateMessage = this.updateMessage.bind(this);
   }
   updateMessage(e) {
+    console.log('the message sending', e.target.value)
     this.setState({
       messageToSend: e.target.value
     })
@@ -66,7 +67,7 @@ class Messages extends Component {
       ]
     }); 
 
-    const theInput = document.getElementsByClassName("messageInput");
+    
     console.log('clear this input', this.msgInput.value);
 
     socket.emit('chat', newMessage, currRoom);
@@ -216,7 +217,7 @@ class Messages extends Component {
         <InputLabel > Message 
 
         </InputLabel>
-        <Input ref={ el => this.msgInput = el} className={'messageInput'} style={{backgroundColor: '#cfe8fc'}}  /> <Button onClick={(e) => {this.socketPostMessage(e)}} style={{backgroundColor: '#cfe8fc'}} />
+        <Input onChange={(e) => {this.updateMessage(e)}} ref={ el => this.msgInput = el} className={'messageInput'} style={{backgroundColor: '#cfe8fc'}}  /> <Button onClick={(e) => {this.socketPostMessage(e)}} style={{backgroundColor: '#cfe8fc'}} />
         
         
     
