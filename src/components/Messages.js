@@ -36,7 +36,7 @@ class Messages extends Component {
       messageToSend: ''
     }
     this.fetchOurMessages = this.fetchOurMessages.bind(this);
-    this.listeningSocket = this.listeningSocket.bind(this);   
+
     this.socketPostMessage = this.socketPostMessage.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
   }
@@ -50,39 +50,37 @@ class Messages extends Component {
   socketPostMessage(e){
     e.preventDefault();
     const currRoom = this.state.currRoom;
-    const me = this.props.currUser;
+
+    const me = this.props.currUser.username;
     const recipient = this.state.currMessaging;
+    const date = Date.now();
+    let numID = Math.floor(Math.random() * 1000)
+    console.log(numID)
     let message = this.state.messageToSend;
 
     const { endpoint } = this.state;
     const socket = socketIOClient(endpoint);
     
 
+    let onlyMsg = {
+      created: `${date}`,
+      _id: numID,
+      author: me,
+      message: message
+    }; 
+
     let newMessage = JSON.stringify({
-      "partyOne": me,
-      "partyTwo": recipient,
-      "messages": [
-        me,
-        message
-      ]
-    }); 
-
-    
-    console.log('clear this input', this.msgInput.value);
-
-    socket.emit('chat', newMessage, currRoom);
-  }
-
-  listeningSocket(){
-    const { endpoint } = this.state;
-    const socket = socketIOClient(endpoint);
-
-    socket.on('chat', messageReceived =>{
-      const messageHistory = this.state.messageHistory.slice();
-      messageHistory.push(messageReceived);
-      this.setState({ messageHistory });
+      partyOne: me,
+      partyTwo: recipient,
+      message: [{
+        author: me,
+        message: message,
+      }]
     })
+    
+    socket.emit('chat', newMessage, onlyMsg, currRoom);
   }
+
 
   fetchOurMessages(e, party2){
     // fetch and setState variables
@@ -91,6 +89,8 @@ class Messages extends Component {
     // Socket variables
     const ourRoomName = currUser + party2;
     let lastRoom = this.state.currRoom;
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint);
 
     fetch('http://localhost:8080/message/getOurConvo', {
       method: 'post',
@@ -114,14 +114,20 @@ class Messages extends Component {
         messageHistory: ourMsgHistory,
         currRoom: ourRoomName
        });  
-       const { endpoint } = this.state;
-       const socket = socketIOClient(endpoint);
+       
   
        socket.emit('joinOurRoom', ourRoomName);
        if(ourRoomName !== lastRoom) socket.emit('leaveOurRoom', lastRoom);
        // leave room and join
+    }).then(()=>{
+      socket.on('chat', messageReceived =>{
+        console.log('received the boomeranged message', messageReceived)
+        const messageHistory = this.state.messageHistory.slice();
+        messageHistory.push(messageReceived);
+        this.setState({ messageHistory: messageHistory });
     })
-  }
+  });
+}
 
 
   componentDidMount(){
@@ -161,6 +167,7 @@ class Messages extends Component {
       if(firstRecipient){
         firstRecipient = firstRecipient["partyTwo"]
       } 
+      console.log('history b4 seeting state', getHistory)
       let ourRoomName = currUser + firstRecipient;
       this.setState({
         messageRecipients : setStateMessageRecipients,
@@ -168,10 +175,17 @@ class Messages extends Component {
         currMessaging: firstRecipient,
         currRoom: ourRoomName
       });
-      this.listeningSocket();
+      
       // join room **********
-      socket.emit('joinOurRoom', ourRoomName);
+      
     })
+    .then(() => { socket.on('chat', messageReceived =>{
+      console.log('received the boomeranged message', messageReceived)
+      const messageHistory = this.state.messageHistory.slice();
+      messageHistory.push(messageReceived);
+      this.setState({ messageHistory: messageHistory });
+    })})
+    .then(() => socket.emit('joinOurRoom', this.state.currRoom))
   }
 
   removeDuplicates(myArr, prop) {
@@ -181,7 +195,7 @@ class Messages extends Component {
   }
 
   componentDidUpdate(){
-
+    
   }
 
   render() {
