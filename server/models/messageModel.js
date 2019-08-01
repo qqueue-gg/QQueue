@@ -13,4 +13,6 @@ const messageSchema = new Schema({
   ]
 });
 
+messageSchema.index({partyOne: 1, partyTwo: 1}, {unique: true});
+
 module.exports = mongoose.model('Message', messageSchema);
