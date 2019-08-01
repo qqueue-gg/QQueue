@@ -1,4 +1,4 @@
-const Message = require('../models/messageMOdel.js');
+const Message = require('../models/messageModel.js');
 
 module.exports = messageController = {
   getMessengerList: (req, res, next) => {
