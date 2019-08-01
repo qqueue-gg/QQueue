@@ -28,12 +28,18 @@ class Messages extends Component {
     this.state ={
       endpoint: "http://localhost:8080",
       response: false,
-      messageRecipients: []
-
+      messageRecipients: [],
+      currMessaging: '',
+      messageHistory: []
     }
-    
+    this.fetchOurMessages = this.fetchOurMessages.bind(this);   
   }
 
+  fetchOurMessages(e, party2){
+    console.log( "should be me", this.props.currUser.username)
+    console.log('should be party 2', party2)
+    this.setState({currMessaging: party2 })  
+  }
 
 
   componentDidMount(){
@@ -57,28 +63,46 @@ class Messages extends Component {
       return res.json();
     })
     .then(myMessageList => {
+      // might want to change this in the future, to get the last person you message
+      let firstRecipient = myMessageList[0];
+      const getHistory = [];
+
       myMessageList.forEach((uniqueConversation) => {
+
         let recipient = uniqueConversation["partyTwo"];
         setStateMessageRecipients.push(recipient);
+
+        if(uniqueConversation === firstRecipient){
+           uniqueConversation["messages"].forEach((message) => getHistory.push(message));
+        }
       })
-      this.setState({messageRecipients : setStateMessageRecipients});
+      if(firstRecipient) firstRecipient = firstRecipient["partyTwo"]
+      this.setState({
+        messageRecipients : setStateMessageRecipients,
+        messageHistory : getHistory,
+        currMessaging: firstRecipient
+      });
+
+      // join room **********
     })
   }
 
   componentDidUpdate(){
-    console.log('component updated', this.state.messageRecipients);
+    // create messages array
+    // look at message History 
+    // if (author === me) different color and fixed right 
     
     
   }
 
 
   render() {
-    console.log('logging response', this.state.response)
+    console.log('logging all new State', this.state)
     
     // create buttons for each person I'm messaging 
     const contactList = this.state.messageRecipients;
     const ButtonList = contactList.map((user) => {
-     return <Button style={{backgroundColor: "#FDC982"}} className={user}>{user}</Button>
+     return <Button style={{backgroundColor: "#FDC982"}} className={user} onClick={(e) =>{this.fetchOurMessages(e, user)}} >{user}</Button>
     });
     console.log(ButtonList);
 
