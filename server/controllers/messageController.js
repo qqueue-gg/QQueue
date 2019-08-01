@@ -12,6 +12,8 @@ module.exports = messageController = {
       return res.status(200).json(obj);
     });
   },
+
+  
   addMessage: (req, res, next) => {
     Message.create({
       ...req.body
