@@ -53,7 +53,7 @@ io.on("connection", socket => {
 
   // Chat message logic
   socket.on('chat', ( messageSent, roomName) =>{
-    
+    messageController.updateSocketMessage(messageSent);
     // add logic to send the message to the db
     io.to(roomName).emit(messageSent)
   });
