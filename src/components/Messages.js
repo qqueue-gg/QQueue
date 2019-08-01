@@ -42,7 +42,15 @@ class Messages extends Component {
     const socket = socketIOClient(endpoint);
     socket.on('room', data => this.setState({response: data}));  
     
-    fetch('http://localhost:8080/message/getMessengerList')
+    const curUser = this.props.currUser.username;
+
+    fetch('http://localhost:8080/message/getMessengerList', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        "partyOne": curUser
+      })
+    })
     .then(res => {
       return res.json();
     })
