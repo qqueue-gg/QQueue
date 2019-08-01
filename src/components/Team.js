@@ -34,8 +34,10 @@ const useStyles = makeStyles(theme => ({
   displayCol: {
     display: "flex",
     flexDirection: "column"
+  },
+  mb: {
+    marginBottom: "0.5rem"
   }
-
 }))
 
 export default function Team (props){
@@ -59,7 +61,7 @@ export default function Team (props){
 
   return(
   <container>
-    <ExpansionPanel>
+    <ExpansionPanel className={classes.mb}>
       <ExpansionPanelSummary> 
         <div>
           <Avatar alt="Remy Sharp" src={teamPic} className={classes.avatar} />
