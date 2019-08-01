@@ -2,6 +2,7 @@ const User = require('../models/userModel.js');
 
 module.exports = userController = {
   // add middleware to interact with database
+  // TODO: add pw encryption
   addUser: (req, res, next) => {
     User.create({
       ...req.body

@@ -5,7 +5,7 @@ import Signup from './Signup';
 function LoginSignup(props) {
   return (
     <div>
-      <LoginBar updateLoggedIn={props.updateLoggedIn}/>
+      <LoginBar updateLoggedIn={props.updateLoggedIn} currUser={props.currUser} updateCurrUser={props.updateCurrUser}/>
       <Signup />
     </div>
   )
