@@ -26,7 +26,8 @@ class Messages extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      endpoint: "localhost:8080"
+      endpoint: "http://localhost:8080",
+      response: false
     }
     // this.socket = io();
     
@@ -34,7 +35,10 @@ class Messages extends Component {
 
   componentDidMount(){
     const { endpoint } = this.state;
+    console.log('loggin endpoint', endpoint)
     const socket = socketIOClient(endpoint);
+    socket.on('room', data => this.setState({response: data})
+  )
     
   }
 
@@ -44,7 +48,7 @@ class Messages extends Component {
 
 
   render() {
-  
+    console.log('logging response', this.state.response)
 
     return(
       <React.Fragment>
