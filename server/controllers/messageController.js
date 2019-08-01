@@ -54,5 +54,24 @@ module.exports = messageController = {
         return next();
       });
     });
+  },
+  updateSocketMessage: (message) => {
+    console.log('Message in controller middleware: ', message);
+    Message.findOneAndUpdate({ 
+      partyOne: message.partyOne, 
+      partyTwo: message.partyTwo 
+    }, { $push: {messages: message.messages} }, { new: true }, (err, updated) => {
+      // if(err) return next('err:', err);
+      if(err) throw new Error('Error with database query');
+      Message.findOneAndUpdate({ 
+        partyOne: message.partyTwo, 
+        partyTwo: message.partyOne 
+      }, { $push: {
+        messages: message.messages
+      } }, { new: true }, (err, updated) => {
+        // if(err) return next('second err: ', err);
+        if(err) throw new Error('Error with database query');
+      });
+    });
   }
 };

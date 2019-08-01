@@ -23,6 +23,8 @@ const teamRoutes = require('./routes/teamRoutes');
 const authRoutes = require('./routes/authRoutes');
 const messageRoutes = require('./routes/messagesRoutes');
 
+const messageController = require('./controllers/messageController');
+
 /*   Routing Endpoints     */
 app.use('/user', userRoutes);
 app.use('/team', teamRoutes);
@@ -51,7 +53,7 @@ io.on("connection", socket => {
 
   // Chat message logic
   socket.on('chat', ( messageSent, roomName, player1, player2 ) =>{
-    
+    messageController.updateSocketMessage(messageSent);
     // add logic to send the message to the db
     io.to(roomName).emit(messageSent)
   });
