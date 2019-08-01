@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="App">
-      {loggedIn ? main : <LoginSignup updateLoggedIn={updateLoggedIn} updateCurrUser={updateCurrUser} />}
+      {loggedIn ? main : <LoginSignup updateLoggedIn={updateLoggedIn} updateCurrUser={updateCurrUser} currUser={currUser}/>}
     </div>
   );
 }

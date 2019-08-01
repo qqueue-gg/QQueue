@@ -6,8 +6,8 @@ module.exports = {
     const { username, password } = req.body;
     User.findOne({ username, password }, (err, result) => {
       if (err) return next(err);
-      if (result) res.locals.success = true;
-      else res.locals.success = false;
+      if (result) res.locals.userInfo = result;
+      else res.locals.userInfo = false;
       next();
     })
   },

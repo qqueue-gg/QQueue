@@ -56,8 +56,10 @@ function Signup(props) {
   }
 
   // TODO: add validation for matching password and password rules
+  // TODO: add validation for username already taken
+  // TODO: add validation for valid email
   // TODO: add password rules as a warning
-  // TODO: make password be dots
+  // TODO: change success popup position
   return (
     <div>
       <Snackbar open={success} autoHideDuration={1500} onClose={() => updateSuccess(false)} message={<span id="success">Account Created!</span>} />
@@ -67,7 +69,7 @@ function Signup(props) {
         <InputLabel htmlFor="email">Email</InputLabel>
         <Input id="email" name="email" className={classes.input} onChange={handleChange('email')}></Input>
         <InputLabel htmlFor="password">Password</InputLabel>
-        <Input id="password" name="password" className={classes.input} onChange={handleChange('password')}></Input>
+        <Input id="password" name="password" type="password" className={classes.input} onChange={handleChange('password')}></Input>
         <InputLabel htmlFor="confirmPw">Confirm Password</InputLabel>
         <Input id="confirmPw" name="confirmPw" className={classes.input} onChange={handleChange('confirmPw')}></Input>
         <Button onClick={handleSubmit} className={classes.button}>Create Account</Button>
