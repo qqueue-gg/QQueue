@@ -14,4 +14,8 @@ router.put('/updateMessage', messageController.updateMessage, (req, res) => {
   return res.status(200).send('Message updated succcessfully.');
 });
 
+router.post('/getOurConvo', messageController.getOurConvo, (req, res) =>{
+  return res.status(200).send('Message yeet');
+});
+
 module.exports = router;

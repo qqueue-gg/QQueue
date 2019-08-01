@@ -13,7 +13,19 @@ module.exports = messageController = {
     });
   },
 
-  
+  getOurConvo: (req, res, next) => {
+    console.log('retrieving messages');
+    Message.find({
+      partyOne: req.body.partyOne,
+      partyTwo: req.body.partyTwo
+    }, (err, obj) => {
+      if(err) return next(err);
+
+      return res.status(200).json(obj);
+    });
+  },
+
+
   addMessage: (req, res, next) => {
     Message.create({
       ...req.body

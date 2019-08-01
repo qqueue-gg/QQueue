@@ -14,6 +14,7 @@ import {
   Container,
   CssBaseline
 } from "@material-ui/core";
+import { S_IFMT } from 'constants';
 
 // const useStyles = makeStyles(theme => ({
 //   input: {
@@ -30,15 +31,48 @@ class Messages extends Component {
       response: false,
       messageRecipients: [],
       currMessaging: '',
-      messageHistory: []
+      messageHistory: [],
+      currRoom: ''
     }
     this.fetchOurMessages = this.fetchOurMessages.bind(this);   
   }
 
   fetchOurMessages(e, party2){
-    console.log( "should be me", this.props.currUser.username)
-    console.log('should be party 2', party2)
-    this.setState({currMessaging: party2 })  
+    // fetch and setState variables
+    const currUser = this.props.currUser.username;
+    const ourMsgHistory = [];
+    // Socket variables
+    const ourRoomName = currUser + party2;
+    let lastRoom = this.state.currRoom;
+
+    fetch('http://localhost:8080/message/getOurConvo', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        "partyOne": currUser,
+        "partyTwo": party2
+      })
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(ourConvo => {
+      console.log('ourConvo', ourConvo)
+      const messageArr = ourConvo["messages"];
+      if(messageArr) messageArr.forEach((message) => ourMsgHistory.push(message));
+    })
+        
+    this.setState({
+      currMessaging: party2,
+      messageHistory: ourMsgHistory,
+      currRoom: ourRoomName
+     });  
+     const { endpoint } = this.state;
+      const socket = socketIOClient(endpoint);
+
+     socket.emit('joinOurRoom', ourRoomName);
+     if(ourRoomName !== lastRoom) socket.emit('leaveOurRoom', lastRoom);
+     // leave room and join
   }
 
 
@@ -76,14 +110,19 @@ class Messages extends Component {
            uniqueConversation["messages"].forEach((message) => getHistory.push(message));
         }
       })
-      if(firstRecipient) firstRecipient = firstRecipient["partyTwo"]
+      if(firstRecipient){
+        firstRecipient = firstRecipient["partyTwo"]
+      } 
+      let ourRoomName = currUser + firstRecipient;
       this.setState({
         messageRecipients : setStateMessageRecipients,
         messageHistory : getHistory,
-        currMessaging: firstRecipient
+        currMessaging: firstRecipient,
+        currRoom: ourRoomName
       });
-
+      
       // join room **********
+      socket.emit('joinOurRoom', ourRoomName);
     })
   }
 
