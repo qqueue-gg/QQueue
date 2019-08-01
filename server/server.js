@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const server = require('http').createServer(app);
+const io = require('socket.io');
+
 app.use(cors());
 app.use(bodyParser.json({extended: true}));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -35,4 +38,26 @@ app.use((err, req, res, next) => {
   if(err) res.status(404).send('404: NOT FOUND');
 })
 
-app.listen(8080, () => 'gilbert is always watching');
+/* Socket IO Logic */
+io.on('connection', function(socket){
+  // when component unmounts, this should log
+  socket.on('disconnect', ()=>{console.log('woohoo, we left / disconnected')});
+
+  // join this 'room', a unique room name made up of two user's strings
+  socket.on('joinOurRoom', ( ourRoom ) =>{
+    socket.join(ourRoom);
+  });
+  // gotta leave previous room or you'll risk emitting to previously selected rooms the same message
+  socket.on('leaveOurRoom', ( roomLeaving ) =>{
+    socket.leave(roomLeaving);
+  });
+
+  // Chat message logic 
+  socket.on('chat', ( messageSent, roomName, player1, player2 ) =>{
+    // add logic to send the message to the db    
+    io.to(roomName).emit(messageSent)
+  });
+
+})
+
+server.listen(8080, () => 'gilbert is always watching');
