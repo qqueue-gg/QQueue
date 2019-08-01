@@ -32,9 +32,55 @@ class Messages extends Component {
       messageRecipients: [],
       currMessaging: '',
       messageHistory: [],
-      currRoom: ''
+      currRoom: '',
+      messageToSend: ''
     }
-    this.fetchOurMessages = this.fetchOurMessages.bind(this);   
+    this.fetchOurMessages = this.fetchOurMessages.bind(this);
+    this.listeningSocket = this.listeningSocket.bind(this);   
+    this.socketPostMessage = this.socketPostMessage.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
+  }
+  updateMessage(e) {
+    this.setState({
+      messageToSend: e.target.value
+    })
+  }
+
+  socketPostMessage(e){
+    e.preventDefault();
+    const currRoom = this.state.currRoom;
+    const me = this.props.currUser;
+    const recipient = this.state.currMessaging;
+    let message = this.state.messageToSend;
+
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint);
+    
+
+    let newMessage = JSON.stringify({
+      "partyOne": me,
+      "partyTwo": recipient,
+      "messages": [
+        me,
+        message
+      ]
+    }); 
+
+    const theInput = document.getElementsByClassName("messageInput");
+    console.log('clear this input', this.msgInput.value);
+
+    socket.emit('chat', newMessage, currRoom);
+  }
+
+  listeningSocket(){
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint);
+
+    socket.on('chat', messageReceived =>{
+      const messageHistory = this.state.messageHistory.slice();
+      messageHistory.push(messageReceived);
+      this.setState({ messageHistory });
+    })
   }
 
   fetchOurMessages(e, party2){
@@ -121,7 +167,7 @@ class Messages extends Component {
         currMessaging: firstRecipient,
         currRoom: ourRoomName
       });
-      
+      this.listeningSocket();
       // join room **********
       socket.emit('joinOurRoom', ourRoomName);
     })
@@ -170,7 +216,7 @@ class Messages extends Component {
         <InputLabel > Message 
 
         </InputLabel>
-        <Input className={'messageInput'} style={{backgroundColor: '#cfe8fc'}}  /> <Button style={{backgroundColor: '#cfe8fc'}} />
+        <Input ref={ el => this.msgInput = el} className={'messageInput'} style={{backgroundColor: '#cfe8fc'}}  /> <Button onClick={(e) => {this.socketPostMessage(e)}} style={{backgroundColor: '#cfe8fc'}} />
         
         
     
