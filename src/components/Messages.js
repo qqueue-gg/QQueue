@@ -231,10 +231,8 @@ class Messages extends Component {
         <InputLabel > Message 
 
         </InputLabel>
-        <Input onChange={(e) => {this.updateMessage(e)}} ref={ el => this.msgInput = el} className={'messageInput'} style={{backgroundColor: '#cfe8fc'}}  /> <Button onClick={(e) => {this.socketPostMessage(e)}} style={{backgroundColor: '#cfe8fc'}} />
+        <Input id="input" onChange={(e) => {this.updateMessage(e)}} ref={ el => this.msgInput = el} className={'messageInput'} style={{backgroundColor: '#cfe8fc'}}  /> <Button onClick={(e) => {this.socketPostMessage(e)}} style={{backgroundColor: '#cfe8fc'}} />
         
-        
-    
       </React.Fragment>
     )
   }
