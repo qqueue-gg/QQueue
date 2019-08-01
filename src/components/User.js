@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
 import {
   ExpansionPanel,
   ExpansionPanelDetails,
@@ -102,7 +104,9 @@ export const User = props => {
       <Divider />
       <ExpansionPanelActions>
         <Button recipient={props.username} onClick={(e) => {props.createNewMessage(e, props.username)}}>
-          <Message />
+          <Link to="/messages">
+            <Message />
+          </Link>
         </Button>
         <Button variant="contained" href="mailto:eisele.joseph1@gmail.com" color="primary">
           <MailOutline />
