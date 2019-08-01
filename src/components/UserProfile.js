@@ -32,16 +32,18 @@ const useStyles = makeStyles(theme => ({
 function UserProfile(props) {
   const classes = useStyles();
 
-  const [values, setValues] = useState({
-    username: "",
-    bio: "",
-    steamName: "",
-    age: 18,
-    timeZone: "",
-    email: "",
-    faveGame: "",
-    hobbyGames: [],
-  });
+  // const [values, setValues] = useState({
+  //   username: "",
+  //   bio: "",
+  //   steamName: "",
+  //   age: 18,
+  //   timeZone: "",
+  //   email: "",
+  //   faveGame: "",
+  //   hobbyGames: [],
+  // });
+
+  const [values, setValues] = useState(props.currUser);
 
   function handleDropdown(event) {
     setValues(oldValues => ({
@@ -74,14 +76,14 @@ function UserProfile(props) {
       <InputLabel htmlFor="email" className={classes.label}>Email Address</InputLabel>
       <Input className={classes.input} id="email" name="email" defaultValue={props.currUser.email} onChange={handleChange('email')}></Input>
       <InputLabel htmlFor="faveGame" className={classes.label}>Main Game</InputLabel>
-      <Select value={values.faveGame} onChange={handleDropdown} className={classes.input} id="faveGame" name="faveGame">
+      <Select value={values.primaryGame} onChange={handleDropdown} className={classes.input} id="faveGame" name="primaryGame">
         <MenuItem value="CS:GO">CS:GO</MenuItem>
         <MenuItem value="League of Legends">League of Legends</MenuItem>
         <MenuItem value="DOTA">DOTA</MenuItem>
         <MenuItem value="Fortnite">Fortnite</MenuItem>
       </Select>
       <InputLabel htmlFor="hobbyGames" className={classes.label}>Hobby Games</InputLabel>
-      <Select multiple value={values.hobbyGames} onChange={handleDropdown} className={classes.input} id="hobbyGames" name="hobbyGames">
+      <Select multiple value={[values.hobbyGames]} onChange={handleDropdown} className={classes.input} id="hobbyGames" name="hobbyGames">
         <MenuItem value="CS:GO">CS:GO</MenuItem>
         <MenuItem value="League of Legends">League of Legends</MenuItem>
         <MenuItem value="DOTA">DOTA</MenuItem>

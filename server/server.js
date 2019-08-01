@@ -67,9 +67,4 @@ app.use((err, req, res, next) => {
   res.status(404).send(err);
 })
 
-<<<<<<< HEAD
-app.listen(8080, () => console.log('gilbert is always watching'));
-=======
-
 server.listen(8080, () => 'gilbert is always watching');
->>>>>>> 361067724ddbf3750d6963c3752b560f8952a0ca

@@ -11,18 +11,13 @@ const useStyles = makeStyles(theme => ({
 // set updateLoggedIn(true)
 
 function LoginBar(props) {
+  const [failure, updateFailure] = useState(false);
   const [loginValues, setLoginValues] = useState({
     username: "",
     password: "",
   });
 
-  const [failure, updateFailure] = useState(false);
-
   const classes = useStyles();
-  // props.updateCurrUser
-  // check if user / pass matches
-  // if matches, set updateLoggedIn(true), set current user to found user's data
-  // and get all their data
 
   function handleClick() {
     const { username, password } = loginValues;
