@@ -32,9 +32,14 @@ class Messages extends Component {
       currMessaging: '',
       messageHistory: []
     }
-    
+    this.fetchOurMessages = this.fetchOurMessages.bind(this);   
   }
 
+  fetchOurMessages(e, party2){
+    console.log( "should be me", this.props.currUser.username)
+    console.log('should be party 2', party2)
+    this.setState({currMessaging: party2 })  
+  }
 
 
   componentDidMount(){
@@ -77,10 +82,15 @@ class Messages extends Component {
         messageHistory : getHistory,
         currMessaging: firstRecipient
       });
+
+      // join room **********
     })
   }
 
   componentDidUpdate(){
+    // create messages array
+    // look at message History 
+    // if (author === me) different color and fixed right 
     
     
   }
@@ -92,7 +102,7 @@ class Messages extends Component {
     // create buttons for each person I'm messaging 
     const contactList = this.state.messageRecipients;
     const ButtonList = contactList.map((user) => {
-     return <Button style={{backgroundColor: "#FDC982"}} className={user}>{user}</Button>
+     return <Button style={{backgroundColor: "#FDC982"}} className={user} onClick={(e) =>{this.fetchOurMessages(e, user)}} >{user}</Button>
     });
     console.log(ButtonList);
 
