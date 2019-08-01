@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
-  partyOne: {type: String, required: true},
-  partyTwo: {type: String, required: true},
+  partyOne: {type: String, required: true, unique: false},
+  partyTwo: {type: String, required: true, unique: false},
   messages: [
     {
       author: String,
