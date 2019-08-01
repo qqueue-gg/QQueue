@@ -13,7 +13,8 @@ import Messages from "./components/Messages";
 const useStyles = makeStyles(theme => ({
   nav: {
     display: 'block',
-    color: '#3C3BFF',
+    'background-color': '#57839D',
+    'text-align': 'center',
   },
   link: {
     'text-decoration': 'none',

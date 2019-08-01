@@ -11,6 +11,10 @@ const useStyles = makeStyles(theme => ({
     'border-radius': '.3em',
     width: '50vw',
     margin: '5em auto',
+    'text-align': 'center',
+  },
+  inputContainer: {
+    'text-align': 'left',
   },
   input: {
     display: 'block',
@@ -20,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     outline: '1px solid black',
     'border-radius': '1em',
     margin: 'auto',
-  }
+  },
 }));
 
 function Signup(props) {
@@ -63,16 +67,18 @@ function Signup(props) {
   return (
     <div>
       <Snackbar open={success} autoHideDuration={2000} onClose={() => updateSuccess(false)} message={<span id="success">Account Created!</span>} />
-      <form className={classes.container}>
-        <InputLabel htmlFor="username">Username</InputLabel>
-        <Input id="username" name="username" className={classes.input} onChange={handleChange('username')}></Input>
-        <InputLabel htmlFor="email">Email</InputLabel>
-        <Input id="email" name="email" className={classes.input} onChange={handleChange('email')}></Input>
-        <InputLabel htmlFor="password">Password</InputLabel>
-        <Input id="password" name="password" type="password" className={classes.input} onChange={handleChange('password')}></Input>
-        <InputLabel htmlFor="confirmPw">Confirm Password</InputLabel>
-        <Input id="confirmPw" name="confirmPw" className={classes.input} onChange={handleChange('confirmPw')}></Input>
-        <Button onClick={handleSubmit} className={classes.button}>Create Account</Button>
+      <form className={classes.container} autoComplete="false">
+        <div className={classes.inputContainer}>
+          <InputLabel htmlFor="username">Username</InputLabel>
+          <Input id="username" name="username" className={classes.input} onChange={handleChange('username')}></Input>
+          <InputLabel htmlFor="email">Email</InputLabel>
+          <Input id="email" name="email" className={classes.input} onChange={handleChange('email')}></Input>
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <Input id="password" name="password" type="password" className={classes.input} onChange={handleChange('password')}></Input>
+          <InputLabel htmlFor="confirmPw">Confirm Password</InputLabel>
+          <Input id="confirmPw" name="confirmPw" className={classes.input} onChange={handleChange('confirmPw')}></Input>
+          <Button onClick={handleSubmit} className={classes.button}>Create Account</Button>
+        </div>
       </form>
     </div>
   )
