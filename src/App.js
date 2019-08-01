@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-// import { useRoutes } from 'hookrouter';
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
-import Routes from './router';
-import { A } from 'hookrouter';
 import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -16,7 +13,8 @@ import Messages from "./components/Messages";
 const useStyles = makeStyles(theme => ({
   nav: {
     display: 'block',
-    color: '#3C3BFF',
+    'background-color': '#57839D',
+    'text-align': 'center',
   },
   link: {
     'text-decoration': 'none',
@@ -38,12 +36,11 @@ function App() {
       </AppBar>
       <Route exact path="/" component={() => <Users currUser={currUser} />} />
       <Route path="/teams" component={Teams} />
-      <Route path="/messages" component={() => <Messages currUser={currUser}/>} />
+      <Route path="/messages" component={() => <Messages currUser={currUser} />} />
       <Route path="/profile" component={() => <UserProfile currUser={currUser} />} />
       <Route path="/login" component={LoginSignup} />
     </Router>
   ];
-  console.log('checking currUser', currUser)
   return (
     <div className="App">
       {loggedIn ? main : <LoginSignup updateLoggedIn={updateLoggedIn} updateCurrUser={updateCurrUser} currUser={currUser} />}
