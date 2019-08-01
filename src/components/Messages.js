@@ -27,7 +27,9 @@ class Messages extends Component {
     super(props);
     this.state ={
       endpoint: "http://localhost:8080",
-      response: false
+      response: false,
+      messageRecipients: []
+
     }
     
   }
@@ -38,11 +40,19 @@ class Messages extends Component {
     const { endpoint } = this.state;
     console.log('loggin endpoint', endpoint)
     const socket = socketIOClient(endpoint);
-    socket.on('room', data => this.setState({response: data}));    
+    socket.on('room', data => this.setState({response: data}));  
+    
+    fetch('http://localhost:8080/message/getMessengerList')
+    .then(res => {
+      return res.json();
+    })
+    .then(json => {
+      console.log('should be an array on Messages/componentdidMount', json);
+    })
   }
 
   componentDidUpdate(){
-    
+
   }
 
 

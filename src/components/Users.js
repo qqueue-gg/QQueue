@@ -17,9 +17,18 @@ export class Users extends React.Component {
   }
 
   createNewMessage = (event, recipient) => {
-    console.log('the one I clicked on', recipient);  
-    console.log(event);
-    fetch('http://localhost:8080/user/getUsers')
+    // console.log('the one I clicked on', recipient);  
+    // console.log(event);
+    // const loggedIn = this.props.curUser // not real
+    // fetch('http://localhost:8080/message/addMessage', {
+    //   method: 'post',
+    //   headers: {'Contet-Type':'application/json'},
+    //   body: {
+    //     "partyOne": loggedIn,
+    //     "partyTwo": recipient
+    //   }
+    // });
+    // console.log('created new user. Party1:', loggedIn, 'Party2', recipient);
   }
 
   mapUsers = userArray => {

@@ -65,4 +65,4 @@ app.use((err, req, res, next) => {
 })
 
 
-server.listen(8080, () => 'gilbert is always watching');
+server.listen(8080, () => console.log('gilbert is always watching'));
