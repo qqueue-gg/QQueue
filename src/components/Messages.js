@@ -30,8 +30,7 @@ class Messages extends Component {
       response: false,
       messageRecipients: [],
       currMessaging: '',
-      messageHistory: [],
-      filteredMessages: []
+      messageHistory: []
     }
     this.fetchOurMessages = this.fetchOurMessages.bind(this);   
   }
