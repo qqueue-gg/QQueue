@@ -2,16 +2,16 @@ const express = require('express');
 const router = express.Router();
 const messageController = require('../controllers/messageController');
 
-router.get('/getMessages', (req, res) => {
-
+router.get('/getMessagerList', messageController.getMessagerList, (req, res) => {
+  return res.status(200).send('Messages retrieved successfully.');
 })
 
 router.post('/addMessage', (req, res) => {
-
+  return res.status(200).send('Message added successfully.');
 });
 
 router.put('/updateMessage', (req, res) => {
-
+  return res.status(200).send('Message updated succcessfully.');
 });
 
 module.exports = router;
