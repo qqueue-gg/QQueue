@@ -52,10 +52,12 @@ io.on("connection", socket => {
   });
 
   // Chat message logic
-  socket.on('chat', ( messageSent, roomName) =>{
+  socket.on('chat', ( messageSent, onlyMsg, roomName) =>{
     messageController.updateSocketMessage(messageSent);
+    console.log('got your message boo')
+    
     // add logic to send the message to the db
-    io.to(roomName).emit(messageSent)
+    io.to(roomName).emit('chat', onlyMsg)
   });
    socket.emit('room', true);
 })
