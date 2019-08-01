@@ -27,39 +27,74 @@ class Messages extends Component {
     super(props);
     this.state ={
       endpoint: "http://localhost:8080",
-      response: false
+      response: false,
+      messageRecipients: []
+
     }
-    // this.socket = io();
     
   }
+
+
 
   componentDidMount(){
+    // Socket Connection logic
     const { endpoint } = this.state;
-    console.log('loggin endpoint', endpoint)
     const socket = socketIOClient(endpoint);
-    socket.on('room', data => this.setState({response: data})
-  )
-    
+    socket.on('room', data => this.setState({response: data}));  
+
+    // variables for fetch logic
+    const currUser = this.props.currUser.username;
+    const setStateMessageRecipients = [];
+    // logic for making a list of people I have active messages with
+    fetch('http://localhost:8080/message/getMessengerList', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        "partyOne": currUser
+      })
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(myMessageList => {
+      myMessageList.forEach((uniqueConversation) => {
+        let recipient = uniqueConversation["partyTwo"];
+        setStateMessageRecipients.push(recipient);
+      })
+      this.setState({messageRecipients : setStateMessageRecipients});
+    })
   }
 
-
-
-
+  componentDidUpdate(){
+    console.log('component updated', this.state.messageRecipients);
+    
+    
+  }
 
 
   render() {
     console.log('logging response', this.state.response)
+    
+    // create buttons for each person I'm messaging 
+    const contactList = this.state.messageRecipients;
+    const ButtonList = contactList.map((user) => {
+     return <Button style={{backgroundColor: "#FDC982"}} className={user}>{user}</Button>
+    });
+    console.log(ButtonList);
 
     return(
       <React.Fragment>
         <CssBaseline />
         <Container>
           <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh'}} />
+          <div className={"contactHolder"}>
+          {ButtonList}
+          </div>  
         </Container>
         <InputLabel > Message </InputLabel>
         <Input className={'messageInput'} style={{backgroundColor: '#cfe8fc'}}  /> <Button style={{backgroundColor: '#cfe8fc'}} />
-          
-
+        
+        
     
       </React.Fragment>
     )

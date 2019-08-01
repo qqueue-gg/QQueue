@@ -33,14 +33,14 @@ function App() {
         <Button><Link to="/profile" className={classes.link}>Profile</Link></Button>
         <Button><Link to="/messages" className={classes.link}>Messages</Link></Button>
       </AppBar>
-      <Route exact path="/" component={Users} />
+      <Route exact path="/" component={() => <Users currUser={currUser} />} />
       <Route path="/teams" component={Teams} />
-      <Route path="/messages" component={Messages} />
+      <Route path="/messages" component={() => <Messages currUser={currUser}/>} />
       <Route path="/profile" component={() => <UserProfile currUser={currUser} />} />
       <Route path="/login" component={LoginSignup} />
     </Router>
   ];
-
+  console.log('checking currUser', currUser)
   return (
     <div className="App">
       {loggedIn ? main : <LoginSignup updateLoggedIn={updateLoggedIn} updateCurrUser={updateCurrUser} currUser={currUser} />}
