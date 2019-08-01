@@ -20,10 +20,12 @@ mongoose.connect('mongodb://TeamQQueue:qq4thewin@ds257507.mlab.com:57507/qqueue'
 
 const userRoutes = require('./routes/userRoutes');
 const teamRoutes = require('./routes/teamRoutes');
+const messageRoutes = require('./routes/messagesRoutes');
 
 /*   Routing Endpoints     */
 app.use('/user', userRoutes);
 app.use('/team', teamRoutes);
+app.use('/message', messageRoutes);
 
 app.get('/', (req, res) => {
   res.send("i'm gilbert")
