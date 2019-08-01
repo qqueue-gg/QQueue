@@ -69,7 +69,14 @@ class Messages extends Component {
       message: message
     }; 
 
-    let newMessage = "ok";
+    let newMessage = JSON.stringify({
+      partyOne: me,
+      partyTwo: recipient,
+      message: [{
+        author: me,
+        message: message,
+      }]
+    })
     
     socket.emit('chat', newMessage, onlyMsg, currRoom);
   }
@@ -82,6 +89,8 @@ class Messages extends Component {
     // Socket variables
     const ourRoomName = currUser + party2;
     let lastRoom = this.state.currRoom;
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint);
 
     fetch('http://localhost:8080/message/getOurConvo', {
       method: 'post',
@@ -105,14 +114,20 @@ class Messages extends Component {
         messageHistory: ourMsgHistory,
         currRoom: ourRoomName
        });  
-       const { endpoint } = this.state;
-       const socket = socketIOClient(endpoint);
+       
   
        socket.emit('joinOurRoom', ourRoomName);
        if(ourRoomName !== lastRoom) socket.emit('leaveOurRoom', lastRoom);
        // leave room and join
+    }).then(()=>{
+      socket.on('chat', messageReceived =>{
+        console.log('received the boomeranged message', messageReceived)
+        const messageHistory = this.state.messageHistory.slice();
+        messageHistory.push(messageReceived);
+        this.setState({ messageHistory: messageHistory });
     })
-  }
+  });
+}
 
 
   componentDidMount(){
