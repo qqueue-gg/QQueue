@@ -3,6 +3,7 @@ import { Container, TextField } from "@material-ui/core";
 import '../App.css';
 
 import { User } from './User';
+import { ThreeSixtyRounded, ContactsOutlined } from "@material-ui/icons";
 
 export class Users extends React.Component {
   constructor(){
@@ -12,6 +13,21 @@ export class Users extends React.Component {
       users: [],
       mappedUsers: []
     }
+    this.createNewMessage = this.createNewMessage.bind(this);
+  }
+
+  createNewMessage = (event, recipient) => {
+    const loggedIn = this.props.currUser.username
+    console.log('both', loggedIn, recipient)
+    fetch('http://localhost:8080/message/addMessage', {
+      method: 'post',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        "partyOne": loggedIn,
+        "partyTwo": recipient
+      })
+    });
+    console.log('created new user. Party1:', loggedIn, 'Party2', recipient);
   }
 
   mapUsers = userArray => {
@@ -32,6 +48,7 @@ export class Users extends React.Component {
         timezone={user.timezone}
         username={user.username}
         currentTeam={user.currentTeam}
+        createNewMessage={this.createNewMessage}
       />);
   };
 

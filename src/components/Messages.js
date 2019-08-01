@@ -27,24 +27,41 @@ class Messages extends Component {
     super(props);
     this.state ={
       endpoint: "http://localhost:8080",
-      response: false
+      response: false,
+      messageRecipients: []
+
     }
-    // this.socket = io();
     
   }
+
+
 
   componentDidMount(){
     const { endpoint } = this.state;
     console.log('loggin endpoint', endpoint)
     const socket = socketIOClient(endpoint);
-    socket.on('room', data => this.setState({response: data})
-  )
+    socket.on('room', data => this.setState({response: data}));  
     
+    const curUser = this.props.currUser.username;
+
+    fetch('http://localhost:8080/message/getMessengerList', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        "partyOne": curUser
+      })
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(json => {
+      console.log('should be an array on Messages/componentdidMount', json);
+    })
   }
 
+  componentDidUpdate(){
 
-
-
+  }
 
 
   render() {

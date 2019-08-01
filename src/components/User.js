@@ -101,7 +101,7 @@ export const User = props => {
       </ExpansionPanelDetails>
       <Divider />
       <ExpansionPanelActions>
-        <Button>
+        <Button recipient={props.username} onClick={(e) => {props.createNewMessage(e, props.username)}}>
           <Message />
         </Button>
         <Button variant="contained" href="mailto:eisele.joseph1@gmail.com" color="primary">
