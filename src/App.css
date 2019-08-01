@@ -1,0 +1,11 @@
+body {
+  background-image: url("./static/images/csgo-background.jpg");
+}
+
+.field {
+  background-color: rgba(167, 161, 161, 0.8);
+}
+
+.field input {
+  color: white;
+}
