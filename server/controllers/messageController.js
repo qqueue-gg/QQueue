@@ -4,7 +4,7 @@ module.exports = messageController = {
   getMessengerList: (req, res, next) => {
     Message.find({
       partyOne: req.body.partyOne,
-      partyTwo: req.body.partyTwo
+      // partyTwo: req.body.partyTwo
     }, (err, obj) => {
       if(err) return next(err);
 
