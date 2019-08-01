@@ -30,7 +30,8 @@ class Messages extends Component {
       response: false,
       messageRecipients: [],
       currMessaging: '',
-      messageHistory: []
+      messageHistory: [],
+      filteredMessages: []
     }
     this.fetchOurMessages = this.fetchOurMessages.bind(this);   
   }
@@ -87,14 +88,15 @@ class Messages extends Component {
     })
   }
 
-  componentDidUpdate(){
-    // create messages array
-    // look at message History 
-    // if (author === me) different color and fixed right 
-    
-    
+  removeDuplicates(myArr, prop) {
+    return myArr.filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
   }
 
+  componentDidUpdate(){
+
+  }
 
   render() {
     console.log('logging all new State', this.state)
@@ -110,12 +112,25 @@ class Messages extends Component {
       <React.Fragment>
         <CssBaseline />
         <Container>
-          <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh'}} />
+          <Typography component="div" style={{ marginTop: "5rem", backgroundColor: '#cfe8fc', height: '80vh'}} >
+          {this.removeDuplicates(this.state.messageHistory, 'message').map(message => {
+            return(
+              <div style={{textAlign: message.author === this.props.currUser.username ?
+                "left" : "right"
+              }}>
+                <h4>{message.author}</h4>
+                <p>{message.message}</p>
+              </div>
+            )
+          })}
+          </Typography>
           <div className={"contactHolder"}>
           {ButtonList}
           </div>  
         </Container>
-        <InputLabel > Message </InputLabel>
+        <InputLabel > Message 
+
+        </InputLabel>
         <Input className={'messageInput'} style={{backgroundColor: '#cfe8fc'}}  /> <Button style={{backgroundColor: '#cfe8fc'}} />
         
         
