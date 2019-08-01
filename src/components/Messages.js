@@ -28,8 +28,9 @@ class Messages extends Component {
     this.state ={
       endpoint: "http://localhost:8080",
       response: false,
-      messageRecipients: []
-
+      messageRecipients: [],
+      currMessaging: '',
+      messageHistory: []
     }
     
   }
@@ -57,23 +58,36 @@ class Messages extends Component {
       return res.json();
     })
     .then(myMessageList => {
+      // might want to change this in the future, to get the last person you message
+      let firstRecipient = myMessageList[0];
+      const getHistory = [];
+
       myMessageList.forEach((uniqueConversation) => {
+
         let recipient = uniqueConversation["partyTwo"];
         setStateMessageRecipients.push(recipient);
+
+        if(uniqueConversation === firstRecipient){
+           uniqueConversation["messages"].forEach((message) => getHistory.push(message));
+        }
       })
-      this.setState({messageRecipients : setStateMessageRecipients});
+      if(firstRecipient) firstRecipient = firstRecipient["partyTwo"]
+      this.setState({
+        messageRecipients : setStateMessageRecipients,
+        messageHistory : getHistory,
+        currMessaging: firstRecipient
+      });
     })
   }
 
   componentDidUpdate(){
-    console.log('component updated', this.state.messageRecipients);
     
     
   }
 
 
   render() {
-    console.log('logging response', this.state.response)
+    console.log('logging all new State', this.state)
     
     // create buttons for each person I'm messaging 
     const contactList = this.state.messageRecipients;
