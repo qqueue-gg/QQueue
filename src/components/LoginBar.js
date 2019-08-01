@@ -28,14 +28,14 @@ function LoginBar(props) {
       },
       body: JSON.stringify({ username, password }),
     })
-      .then(res => res.json())
-      .then(res => {
-        if (res) {
-          props.updateCurrUser(res);
-          props.updateLoggedIn(true);
-        }
-        else updateFailure(true);
-      });
+    .then(res => res.json())
+    .then(res => {
+      if (res) {
+        props.updateCurrUser(res);
+        props.updateLoggedIn(true);
+      }
+      else updateFailure(true);
+    });
   }
 
   const handleChange = name => event => {

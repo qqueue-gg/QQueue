@@ -28,9 +28,6 @@ function UserProfile(props) {
   const classes = useStyles();
   const [values, setValues] = useState(props.currUser);
   const [open, setOpen] = useState(false);
-  console.log('is values.hobbyGames and array: ', Array.isArray(values.hobbyGames));
-  // const hobbyGames = [...props.currUser.hobbyGames];
-
 
   function handleDropdown(event) {
     setValues(oldValues => ({

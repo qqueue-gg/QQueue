@@ -35,12 +35,11 @@ function App() {
       </AppBar>
       <Route exact path="/" component={() => <Users currUser={currUser} />} />
       <Route path="/teams" component={Teams} />
-      <Route path="/messages" component={() => <Messages currUser={currUser}/>} />
+      <Route path="/messages" component={() => <Messages currUser={currUser} />} />
       <Route path="/profile" component={() => <UserProfile currUser={currUser} />} />
       <Route path="/login" component={LoginSignup} />
     </Router>
   ];
-  console.log('checking currUser', currUser)
   return (
     <div className="App">
       {loggedIn ? main : <LoginSignup updateLoggedIn={updateLoggedIn} updateCurrUser={updateCurrUser} currUser={currUser} />}
