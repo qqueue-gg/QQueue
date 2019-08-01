@@ -53,6 +53,7 @@ io.on("connection", socket => {
 
   // Chat message logic
   socket.on('chat', ( messageSent, roomName) =>{
+    console.log('got your message boo', messageSent, 'and your room', roomName)
     
     // add logic to send the message to the db
     io.to(roomName).emit(messageSent)

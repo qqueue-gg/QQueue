@@ -50,6 +50,7 @@ class Messages extends Component {
   socketPostMessage(e){
     e.preventDefault();
     const currRoom = this.state.currRoom;
+
     const me = this.props.currUser;
     const recipient = this.state.currMessaging;
     let message = this.state.messageToSend;
@@ -69,18 +70,21 @@ class Messages extends Component {
 
     
     console.log('clear this input', this.msgInput.value);
-
+    console.log('currrrrrrr roomo, when postign', currRoom)
     socket.emit('chat', newMessage, currRoom);
   }
 
   listeningSocket(){
     const { endpoint } = this.state;
     const socket = socketIOClient(endpoint);
+    const currRoom = this.state.currRoom; 
+    console.log('CURR ROOM IN LISTENING SOCK', currRoom)
 
     socket.on('chat', messageReceived =>{
+      console.log('received the boomeranged message', messageReceived)
       const messageHistory = this.state.messageHistory.slice();
       messageHistory.push(messageReceived);
-      this.setState({ messageHistory });
+      this.setState({ messageHistory: messageHistory });
     })
   }
 
@@ -181,7 +185,7 @@ class Messages extends Component {
   }
 
   componentDidUpdate(){
-
+    
   }
 
   render() {
