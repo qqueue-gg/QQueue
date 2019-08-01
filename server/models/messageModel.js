@@ -8,7 +8,7 @@ const messageSchema = new Schema({
     {
       author: String,
       message: String,
-      created: Date
+      created: {type: Date, default: Date.now}
     }
   ]
 });
