@@ -56,13 +56,16 @@ module.exports = messageController = {
     });
   },
   updateSocketMessage: (message) => {
-    console.log('Message in controller middleware: ', message);
+    console.log('message: ', JSON.parse(message))
+    message = JSON.parse(message);
+    console.log('Message in controller middleware: ', message.partyOne, message.messages);
     Message.findOneAndUpdate({ 
       partyOne: message.partyOne, 
       partyTwo: message.partyTwo 
     }, { $push: {messages: message.messages} }, { new: true }, (err, updated) => {
       // if(err) return next('err:', err);
       if(err) throw new Error('Error with database query');
+      console.log('first updated: ', updated);
       Message.findOneAndUpdate({ 
         partyOne: message.partyTwo, 
         partyTwo: message.partyOne 
@@ -71,6 +74,7 @@ module.exports = messageController = {
       } }, { new: true }, (err, updated) => {
         // if(err) return next('second err: ', err);
         if(err) throw new Error('Error with database query');
+        console.log('second updated: ', updated);
       });
     });
   }
