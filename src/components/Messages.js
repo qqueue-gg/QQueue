@@ -72,12 +72,13 @@ class Messages extends Component {
     let newMessage = JSON.stringify({
       partyOne: me,
       partyTwo: recipient,
-      message: [{
+      messages: [{
         author: me,
         message: message,
       }]
     })
     
+    document.querySelector('#input').value = '';
     socket.emit('chat', newMessage, onlyMsg, currRoom);
   }
 
