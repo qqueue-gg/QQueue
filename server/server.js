@@ -3,6 +3,10 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const socketIo = require("socket.io");
+
+const server = require('http').createServer(app);
+const io = socketIo(server);
 
 app.use(cors());
 app.use(bodyParser.json({extended: true}));
@@ -16,23 +20,60 @@ mongoose.connect('mongodb://TeamQQueue:qq4thewin@ds257507.mlab.com:57507/qqueue'
 
 const userRoutes = require('./routes/userRoutes');
 const teamRoutes = require('./routes/teamRoutes');
+const authRoutes = require('./routes/authRoutes');
+const messageRoutes = require('./routes/messagesRoutes');
+
+const messageController = require('./controllers/messageController');
 
 /*   Routing Endpoints     */
 app.use('/user', userRoutes);
 app.use('/team', teamRoutes);
+app.use('/auth', authRoutes);
+app.use('/message', messageRoutes);
 
 app.get('/', (req, res) => {
   res.send("i'm gilbert")
 });
 
+/* Socket IO Logic */
+io.on("connection", socket => {
+  // when component unmounts, this should log
+  socket.on('disconnect', ()=>{console.log('woohoo, we left / disconnected')});
+
+  // join this 'room', a unique room name made up of two user's strings
+  socket.on('joinOurRoom', ( ourRoom ) =>{
+    console.log('joining room:', ourRoom);
+    socket.join(ourRoom);
+  });
+  // gotta leave previous room or you'll risk emitting to previously selected rooms the same message
+  socket.on('leaveOurRoom', ( roomLeaving ) =>{
+    console.log('leaving room:', roomLeaving);
+    socket.leave(roomLeaving);
+  });
+
+  // Chat message logic
+  socket.on('chat', ( messageSent, onlyMsg, roomName) =>{
+    
+    console.log('got your message boo')
+    
+    // add logic to send the message to the db
+    io.to(roomName).emit('chat', onlyMsg);
+    messageController.updateSocketMessage(messageSent);
+  });
+   socket.emit('room', true);
+})
+
+
 // Handle invalid route
-app.use((req, res, next) => {
-  res.status(404).send('404: NOT FOUND');
-});
+// app.use((req, res, next) => {
+//   res.status(404).send('404: NOT FOUND');
+// });
 
 // Global error handler
 app.use((err, req, res, next) => {
-  if(err) res.status(404).send('404: NOT FOUND');
+  console.log(err);
+  res.status(404).send(err);
 })
 
-app.listen(8080, () => 'gilbert is always watching');
+
+server.listen(8080, () => console.log('gilbert is always watching'));

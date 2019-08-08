@@ -1,12 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
-import Button from '@material-ui/core/Button';
+import React, { useState } from 'react';
 import SaveIcon from '@material-ui/icons/Save';
-import { Input } from '@material-ui/core';
+import { Button, Input, InputLabel, Select, MenuItem, Snackbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -31,17 +26,8 @@ const useStyles = makeStyles(theme => ({
 // TODO: add profile picture and password change functionality
 function UserProfile(props) {
   const classes = useStyles();
-
-  const [values, setValues] = useState({
-    username: "",
-    bio: "",
-    steamName: "",
-    age: 18,
-    timeZone: "",
-    email: "",
-    faveGame: "",
-    hobbyGames: [],
-  });
+  const [values, setValues] = useState(props.currUser);
+  const [open, setOpen] = useState(false);
 
   function handleDropdown(event) {
     setValues(oldValues => ({
@@ -55,31 +41,47 @@ function UserProfile(props) {
   }
 
   const handleSubmit = () => {
-    alert(JSON.stringify(values));
+    console.log(JSON.stringify(values));
+    fetch('http://localhost:8080/user/updateUser', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+    .then(() => setOpen(true));
   };
 
   // TODO: make time zone a dropdown
+  // TODO: figure out how to populate hobbygames with current state
+  // TODO: change snackbar location
   return (
-    <form className={classes.container} onSubmit={handleSubmit}>
+    <form className={classes.container} onSubmit={handleSubmit} autoComplete="off">
+      <Snackbar open={open} autoHideDuration={2000} onClose={() => setOpen(false)} message={<span id="success">Updated Successfully!</span>}/>
       <InputLabel htmlFor="username" className={classes.label}>Username</InputLabel>
-      <Input className={classes.input} id="username" name="username" defaultValue="jeisele" onChange={handleChange('username')}></Input>
-      <InputLabel htmlFor="bio" className={classes.label}>Bio</InputLabel>
-      <Input className={classes.input} id="bio" name="bio" defaultValue="this is my bio" onChange={handleChange('bio')}></Input>
-      <InputLabel htmlFor="steamName" className={classes.label}>Steam Name</InputLabel>
-      <Input className={classes.input} id="steamName" name="steamName" defaultValue="steam name" onChange={handleChange('steamName')}></Input>
+      <Input className={classes.input} id="username" name="username" defaultValue={props.currUser.username} onChange={handleChange('username')}></Input>
+      <InputLabel htmlFor="steamProfile" className={classes.label}>Steam Name</InputLabel>
+      <Input className={classes.input} id="steamProfile" name="steamProfile" defaultValue={props.currUser.steamProfile} onChange={handleChange('steamProfile')}></Input>
+      <InputLabel htmlFor="avatarUrl" className={classes.label}>Avatar URL</InputLabel>
+      <Input className={classes.input} id="avatarUrl" name="avatarUrl" defaultValue={props.currUser.logo} onChange={handleChange('logo')}></Input>
       <InputLabel htmlFor="age" className={classes.label}>Age</InputLabel>
-      <Input className={classes.input} id="age" name="age" defaultValue={24} onChange={handleChange('age')}></Input>
+      <Input className={classes.input} id="age" name="age" defaultValue={props.currUser.age} onChange={handleChange('age')}></Input>
       <InputLabel htmlFor="timeZone" className={classes.label}>Time Zone</InputLabel>
-      <Input className={classes.input} id="timeZone" name="timeZone" defaultValue="time zone" onChange={handleChange('timeZone')}></Input>
+      <Input className={classes.input} id="timeZone" name="timeZone" defaultValue={props.currUser.timezone} onChange={handleChange('timeZone')}></Input>
       <InputLabel htmlFor="email" className={classes.label}>Email Address</InputLabel>
-      <Input className={classes.input} id="email" name="email" defaultValue="eisele.joseph@gmail.com" onChange={handleChange('email')}></Input>
+      <Input className={classes.input} id="email" name="email" defaultValue={props.currUser.email} onChange={handleChange('email')}></Input>
       <InputLabel htmlFor="faveGame" className={classes.label}>Main Game</InputLabel>
-      <Select value={values.faveGame} onChange={handleDropdown} className={classes.input} id="faveGame" name="faveGame">
+      <Select value={values.primaryGame} onChange={handleDropdown} className={classes.input} id="faveGame" name="primaryGame">
         <MenuItem value="CS:GO">CS:GO</MenuItem>
         <MenuItem value="League of Legends">League of Legends</MenuItem>
         <MenuItem value="DOTA">DOTA</MenuItem>
         <MenuItem value="Fortnite">Fortnite</MenuItem>
       </Select>
+      <InputLabel htmlFor="skill" className={classes.label}>Skill Level</InputLabel>
+      <Input className={classes.input} id="skill" name="skill" defaultValue={props.currUser.skill} onChange={handleChange('skill')}></Input>
+      <InputLabel htmlFor="currentTeam" className={classes.label}>Current Team</InputLabel>
+      <Input className={classes.input} id="currentTeam" name="currentTeam" defaultValue={props.currUser.currentTeam} onChange={handleChange('currentTeam')}></Input>
       <InputLabel htmlFor="hobbyGames" className={classes.label}>Hobby Games</InputLabel>
       <Select multiple value={values.hobbyGames} onChange={handleDropdown} className={classes.input} id="hobbyGames" name="hobbyGames">
         <MenuItem value="CS:GO">CS:GO</MenuItem>

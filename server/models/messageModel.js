@@ -2,15 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
-  partyOne: {type: String, required: true},
-  partyTwo: {type: String, required: true},
+  partyOne: {type: String, required: true, unique: false},
+  partyTwo: {type: String, required: true, unique: false},
   messages: [
     {
-      author: {type: String, required: true},
-      message: {type: String, required: true},
+      author: String,
+      message: String,
       created: {type: Date, default: Date.now}
     }
   ]
 });
+
+messageSchema.index({partyOne: 1, partyTwo: 1}, {unique: true});
 
 module.exports = mongoose.model('Message', messageSchema);
