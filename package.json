@@ -10,7 +10,7 @@
     "express": "^4.17.1",
     "hookrouter": "^1.2.3",
     "moment": "^2.24.0",
-    "mongoose": "^5.6.7",
+    "mongoose": "^5.7.5",
     "node-env-run": "^3.0.2",
     "npm-run-all": "^4.1.5",
     "react": "^16.8.6",
